@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Админка</title>
+</head>
+<body>
+  <h2>Добавить ученика</h2>
+  <form id="registerForm">
+    <input name="name" placeholder="Имя" required />
+    <input name="password" placeholder="Пароль" type="password" required />
+    <button type="submit">Создать</button>
+  </form>
+
+  <h2>Список учеников</h2>
+  <ul id="userList"></ul>
+
+  <script>
+    document.getElementById("registerForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch("/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.value,
+          password: form.password.value,
+        }),
+      });
+      const data = await res.json();
+      alert(data.message);
+      form.reset();
+      loadUsers();
+    };
+
+    async function loadUsers() {
+      const res = await fetch("/auth/users");
+      const users = await res.json();
+      document.getElementById("userList").innerHTML = users
+        .map((u) => `<li>${u.name}</li>`)
+        .join("");
+    }
+
+    loadUsers();
+  </script>
+</body>
+</html>
