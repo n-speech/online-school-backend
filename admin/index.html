@@ -16,10 +16,12 @@
   <ul id="userList"></ul>
 
   <script>
+    const API = 'https://online-school-backend-h60n.onrender.com';
+
     document.getElementById("registerForm").onsubmit = async (e) => {
       e.preventDefault();
       const form = e.target;
-      const res = await fetch("/auth/register", {
+      const res = await fetch(`${API}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -28,13 +30,13 @@
         }),
       });
       const data = await res.json();
-      alert(data.message);
+      alert(data.message || data.error);
       form.reset();
       loadUsers();
     };
 
     async function loadUsers() {
-      const res = await fetch("/auth/users");
+      const res = await fetch(`${API}/auth/users`);
       const users = await res.json();
       document.getElementById("userList").innerHTML = users
         .map((u) => `<li>${u.name}</li>`)
