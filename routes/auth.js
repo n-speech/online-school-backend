@@ -53,3 +53,14 @@ router.get('/init', async (req, res) => {
   }
 });
 
+router.get('/check-db', async (req, res) => {
+  try {
+    const result = await pool.query(`SELECT current_database()`);
+    res.send(`Текущая база данных: ${result.rows[0].current_database}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Ошибка при проверке базы данных');
+  }
+});
+
+
