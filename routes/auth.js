@@ -37,7 +37,7 @@ router.get('/users', async (req, res) => {
 export default router;
 
 // ВРЕМЕННЫЙ маршрут для создания таблицы users
-/*router.get('/init', async (req, res) => {
+router.get('/init', async (req, res) => {
   try {
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
@@ -51,5 +51,5 @@ export default router;
     console.error(err);
     res.status(500).send('Ошибка при создании таблицы');
   }
-});*/
+});
 
