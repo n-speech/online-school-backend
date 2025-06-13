@@ -62,5 +62,9 @@ router.get('/check-db', async (req, res) => {
     res.status(500).send('Ошибка при проверке базы данных');
   }
 });
+router.get('/raw-users', async (req, res) => {
+  const result = await pool.query('SELECT id, name, password_hash FROM users');
+  res.json(result.rows);
+});
 
 
