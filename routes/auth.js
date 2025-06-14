@@ -37,7 +37,7 @@ router.get('/users', async (req, res) => {
 export default router;
 
 // ВРЕМЕННЫЙ маршрут для создания таблицы users
-router.get('/init', async (req, res) => {
+/*router.get('/init', async (req, res) => {
   try {
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
@@ -65,6 +65,6 @@ router.get('/check-db', async (req, res) => {
 router.get('/raw-users', async (req, res) => {
   const result = await pool.query('SELECT id, name, password_hash FROM users');
   res.json(result.rows);
-});
+});*/
 
 
