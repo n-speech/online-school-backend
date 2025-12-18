@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Личный кабинет</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .dashboard {
+      background: #f9f9f9;
+      border: 2px solid #F4EDDD;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 60%;
+      padding: 2rem;
+      box-sizing: border-box;
+      transition: opacity 0.4s ease;
+      position: relative;
+    }
+
+    /* Первый экран - выбор курса */
+    #welcome-screen {
+      text-align: center;
+    }
+    #welcome {
+      font-size: 1.5rem;
+      color: #241c15;
+      margin-bottom: 2rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .course-card {
+      background: #FFFBE8;
+      border: 2px solid #F4EDDD;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .course-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #241c15;
+      margin-bottom: 0.75rem;
+    }
+
+    .course-card-progress {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-card-bar {
+      background: lightgrey;
+      border-radius: 0.5rem;
+      height: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .course-card-fill {
+      height: 100%;
+      background-color: #FFD966;
+      transition: width 0.5s ease;
+    }
+
+    .btn-course {
+      background-color: #FFD966;
+      color: #241c15;
+      border: none;
+      border-radius: 0.3125rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-course:hover {
+      background-color: #FCE27E;
+    }
+
+    #courseTitle {
+      font-size: 1.5rem;
+      color: #241c15;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    /* Второй экран - уроки курса */
+    #course-screen {
+      display: none;
+    }
+    #course-screen.active {
+      display: block;
+    }
+
+    /* Крестики */
+    .btn-cross {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.7rem;
+      font-weight: 800;
+      text-decoration: none;
+      color: #FFD966;
+      cursor: pointer;
+      padding: 0;
+      border: none;
+      background-color: #f9f9f9;
+      transition: color 0.3s ease;
+      z-index: 10;
+    }
+    .btn-cross:hover {
+      color: #b7aeae;
+    }
+
+    .progress-label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.375rem;
+    }
+    .progress-bar-container {
+      background: lightgrey;
+      border-radius: 0.625rem;
+      overflow: hidden;
+      height: 1.375rem;
+      margin-bottom: 0.5rem;
+    }
+    .progress-bar {
+      height: 100%;
+      background-color: #FFD966;
+      transition: width 0.5s ease;
+    }
+    #progressPercent {
+      font-weight: 600;
+      color: #241c15;
+      margin-bottom: 1.5rem;
+    }
+
+    #lessons-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .lesson-card {
+      background: #FFFBE8;
+      border: 2px solid #F4EDDD;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 7.5rem;
+    }
+
+    .lesson-title {
+      font-size: 1.25rem;
+      color: #241c15;
+      margin-bottom: 0.25rem;
+    }
+
+    .lesson-grade {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #4e9c5d;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-lesson {
+      background-color: #FFD966;
+      color: #241c15;
+      border: none;
+      border-radius: 0.3125rem;
+      padding: 0.75rem 1.25rem;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .btn-lesson.disabled {
+      background-color: #cde3f5;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard {
+        max-width: 100%;
+        padding: 1.5rem;
+      }
+      #welcome {
+        font-size: 1.5rem;
+      }
+      #courseTitle {
+        font-size: 1.5rem;
+        text-align: center;
+        color: #241c15;
+        margin-bottom: 2rem;
+      }
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+
+    <!-- Первый экран - выбор курса -->
+    <div id="welcome-screen">
+      <button class="btn-cross" onclick="window.location.href='/logout'">×</button>
+      <div id="welcome">Добро пожаловать, <%= user.name || 'ученик' %>!</div>
+      
+      <% if (coursesData.length === 0) { %>
+        <p style="color: #666;">У вас пока нет доступных курсов</p>
+      <% } else { %>
+        <div class="courses-grid">
+          <% coursesData.forEach(course => { %>
+            <div class="course-card" data-course-id="<%= course.id %>">
+              <div class="course-card-title"><%= course.name %></div>
+              <div class="course-card-progress">
+                Завершено: <%= course.completed %>/<%= course.total %>
+              </div>
+              <div class="course-card-bar">
+                <div class="course-card-fill" style="width: <%= course.progress %>%"></div>
+              </div>
+              <button class="btn-course" onclick="openCourse('<%= course.id %>')">
+                Открыть курс
+              </button>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Второй экран - уроки выбранного курса -->
+    <div id="course-screen">
+      <button id="btnExit" class="btn-cross">×</button>
+      <div id="courseTitle"></div>
+
+      <div class="progress-label">Прогресс</div>
+      <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div id="progressPercent"></div>
+
+      <div id="lessons-list"></div>
+    </div>
+
+  </div>
+
+  <script>
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const courseScreen = document.getElementById('course-screen');
+  const btnExit = document.getElementById('btnExit');
+  
+  // Данные курсов из EJS
+  const coursesData = <%- JSON.stringify(coursesData) %>;
+  
+  let currentCourse = null;
+
+  // Проверяем, нужно ли открыть конкретный курс
+  const savedCourseId = localStorage.getItem('openCourseId');
+  if (savedCourseId) {
+    openCourse(savedCourseId);
+    localStorage.removeItem('openCourseId');
+  }
+
+  function openCourse(courseId) {
+    currentCourse = coursesData.find(c => c.id === courseId);
+    if (!currentCourse) return;
+
+    // Обновляем данные второго экрана
+    document.getElementById('courseTitle').textContent = currentCourse.name;
+    document.getElementById('progressBar').style.width = currentCourse.progress + '%';
+    document.getElementById('progressPercent').textContent = currentCourse.progress + '% завершено';
+
+    // Генерируем список уроков
+    const lessonsList = document.getElementById('lessons-list');
+    lessonsList.innerHTML = '';
+
+    currentCourse.lessons.forEach(lesson => {
+      const card = document.createElement('div');
+      card.className = 'lesson-card';
+      
+      card.innerHTML = `
+        <div class="lesson-title">${lesson.title}</div>
+        <div class="lesson-grade">Оценка: ${lesson.grade || '—'}</div>
+        ${lesson.access 
+          ? `<a class="btn-lesson" href="/lesson/${currentCourse.id}/${lesson.id}">Перейти к уроку</a>`
+          : `<div class="btn-lesson disabled">🔒 Недоступен</div>`
+        }
+      `;
+      
+      lessonsList.appendChild(card);
+    });
+
+    // Переключаем экраны
+    welcomeScreen.style.display = 'none';
+    courseScreen.style.display = 'block';
+  }
+
+  // Возврат к списку курсов
+  btnExit.addEventListener('click', () => {
+    courseScreen.style.display = 'none';
+    welcomeScreen.style.display = 'block';
+    currentCourse = null;
+  });
+  </script>
+</body>
+</html>
