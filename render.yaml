@@ -1,4 +1,0 @@
-build:
-  command: npm install
-  environment:
-    NODE_VERSION: 18
