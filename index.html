@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Native Speech - Онлайн обучение</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #FFFBE8 0%, #F4EDDD 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .container {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      padding: 3rem 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      color: #241c15;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .features {
+      text-align: left;
+      margin-bottom: 2.5rem;
+      padding: 0 1rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-right: 0.75rem;
+      min-width: 30px;
+    }
+
+    .btn-login {
+      background-color: #FFD966;
+      color: #241c15;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(255, 217, 102, 0.3);
+    }
+
+    .btn-login:hover {
+      background-color: #FCE27E;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 217, 102, 0.4);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .logo {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .btn-login {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🎓 Native Speech</div>
+    <div class="subtitle">
+      Платформа для изучения языков онлайн
+    </div>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span>Интерактивные уроки</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span>Отслеживание прогресса</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span>Персональный подход</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <span>Доступ с любого устройства</span>
+      </div>
+    </div>
+
+    <a href="/login" class="btn-login">Войти в личный кабинет</a>
+
+    <div class="footer">
+      © 2024 Native Speech. Все права защищены.
+    </div>
+  </div>
+</body>
+</html>
