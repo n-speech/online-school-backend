@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Урок 1</title>
+  <style>
+ :root {
+  --color-main: #FFD966;
+  --color-hover: #FCE27E;
+  --color-text: #241c15;
+  --color-bg: #ffffff;
+  --color-bg-light: #FFFBE8;
+  --color-border: #cccccc;
+  --color-blue: #0077cc;
+  --color-blue-hover: #005fa3;
+  --color-success: #c8f7c5;
+  --color-success-border: #3cba54;
+  --color-error: #ffc9c9;
+  --color-error-border: #ff4444;
+  --radius: 0.5rem;
+  --font-size-base: 1.1rem;
+  --font-size-large: 1.2rem;
+  --font-size-title: 2rem;
+  --font-size-subtitle: 1.5rem;
+  --max-width: 1000px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: var(--max-width);
+  text-align: center;
+}
+
+/* Заголовки */
+h1, h2 {
+  font-size: var(--font-size-title);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: var(--font-size-subtitle);
+}
+
+/* Кнопка назад */
+.button-wrapper {
+  text-align: left;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.btn-back {
+  display: inline-block;
+  margin: 10px 0 0 0;
+  padding: 8px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background-color: var(--color-main);
+  border-radius: var(--radius);
+  text-decoration: none;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-back:hover {
+  background-color: var(--color-hover);
+}
+
+/* Списки */
+ul {
+  text-align: left;
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+li {
+  font-size: var(--font-size-large);
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: var(--font-size-large);
+  text-align: left;
+}
+
+/* Аудио */
+audio {
+  display: block;
+  margin: 1rem auto;
+  width: 18rem;
+  max-width: 90%;
+}
+
+/* Видео */
+.video-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 80%;
+  padding-top: 56.25%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .video-container {
+    max-width: 100%;
+  }
+}
+
+/* Буквы */
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.letter {
+  border: 2px solid var(--color-main);
+  background-color: var(--color-bg-light);
+  padding: 0.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.5rem;
+  line-height: 2.8rem;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-radius: var(--radius);
+}
+
+.letter:hover {
+  background-color: #FDF2C2;
+  transform: scale(1.05);
+}
+
+.letter.selected {
+  background-color: #dcdee0;
+  border-color: var(--color-main);
+}
+
+.letter.correct {
+  background-color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+
+.letter.wrong {
+  background-color: var(--color-error);
+  border-color: var(--color-error-border);
+}
+
+/* Кнопка */
+.check-button {
+  width: 100%;
+  max-width: 18rem;
+  padding: 1rem;
+  font-size: var(--font-size-large);
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--color-main);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.check-button:hover {
+  background-color: var(--color-hover);
+}
+
+/* Результат */
+.result,
+#result {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  font-size: var(--font-size-base);
+}
+
+/* PDF */
+.pdf-wrapper {
+  max-width: 53rem;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--color-border);
+}
+
+.pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.pdf-link {
+  display: none;
+}
+
+/* Форма */
+.homework-form {
+  
+  border-color: var(--color-main);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0.2, 0.2, 0.2, 0.2);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 37.5rem;
+}
+
+.homework-form h2 {
+  text-align: center;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.homework-form form {
+  display: flex;
+  flex-direction: column;
+   color: var(--color-text);
+}
+
+.homework-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+   color: var(--color-text);
+}
+
+.homework-form input[type="text"],
+.homework-form input[type="file"] {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  width: 100%;
+   color: var(--color-text);
+}
+
+.homework-form input:focus {
+  border-color: gray;
+  outline: none;
+}
+
+.homework-form button {
+  width: 100%;
+  padding: 1rem;
+  font-size: var(--font-size-large);
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--color-main);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.homework-form button:hover {
+  background-color: var(--color-hover);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+  .letter {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    line-height: 2.8rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .check-button {
+    font-size: 1.1rem;
+    padding: 0.8rem;
+    max-width: 90%;
+  }
+
+  .pdf-wrapper {
+    display: none;
+  }
+
+  .pdf-link {
+    display: block;
+    background-color: var(--color-blue);
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    max-width: 18rem;
+    margin: 1.25rem auto;
+  }
+
+  .pdf-link:hover {
+    background-color: var(--color-blue-hover);
+  }
+
+  .homework-form {
+    padding: 1.2rem;
+    margin: 1rem;
+  }
+
+  .homework-form h2 {
+    font-size: 1.2rem;
+  }
+
+  .homework-form label,
+  .homework-form input,
+  .homework-form button {
+    font-size: 1rem;
+  }
+}
+
+/* Картинка */
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+    
+#wait {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Мобильные стили */
+@media (max-width: 600px) {
+  #wait {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+}    
+  </style>
+</head>
+<body>
+  <section class="title">   
+<a href="/cabinet" class="btn-back" onclick="localStorage.setItem('openCourseScreen', 'true')">← Вернуться в личный кабинет</a>   
+<h1>Курс: "Французский для начинающих". Урок 1.</h1>
+<h1>📌 Тема: Знакомство с алфавитом. Буквы от Aa до Ff.</h1>
+<h1>🎯 Цель урока:</h1> 
+<ul>
+<li>Познакомиться с алфавитом</li>
+<li>Буквы A, B, C, D, E, F - научиться правильно их произносить и узнавать на слух</li>
+<li>Диакритические значки - узнать, как они влияют на чтение букв</li>
+<li>Научиться правильно писать буквы от Aa до Ff</li>
+</ul>
+<p><b>Дорогие ученики</b>, добро пожаловать на курс французского языка! Меня зовут <b>Мария Николаевна</b>, я преподаватель этого курса. Сегодня наш первый урок, где мы начнем знакомиться с <b>алфавитом</b>. Алфавит - важная часть языка, он позволяет нам научиться читать и писать, а еще называть по буквам свое <b>имя</b> и <b>электронную почту</b>. Переходите к видео, где я расскажу Вам все важные подробности. 
+</p>
+</section>
+<section class="title">
+  <h1>Часть 1. Видео</h1>
+</section>
+  
+    <h1>🎬 Видео. Буквы от A до F</h1>
+<div class="video-wrapper">
+  <div class="video-container">
+    <iframe src="https://player.vimeo.com/video/1087346783?h=ca8b7df0be&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+      title="lesson1"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+  
+  <section class="title">
+    <h1>Часть 2. Упражнения </h1>
+    <p>
+      <b>После первого</b> знакомства с буквами мы сделаем несколько упражнений на закрепление материала. Можно выполнять упражнения несколько раз, пока не почувствуете, что легко узнаете эти буквы.
+    </p>
+  </section>
+
+<!-- Упражнение 1 -->
+  <section class="choice-exercise" data-correct="b">
+  <h3>Упражнение 1. Выбери правильную букву</h3>
+  <audio id="sound1" src="/protected-file/F1/lesson1/audioL1/ex7.m4a" controls></audio>
+  
+  <div class="letters">
+    <div class="letter">b</div>
+    <div class="letter">d</div>
+  </div>
+  <button class="check-button">Проверить</button>
+  <div class="result"></div>
+  <br>
+</section>
+
+<!-- Упражнение 2 -->
+<section class="choice-exercise" data-correct="d">
+  <h3>Упражнение 2. Выбери правильную букву</h3>
+  <audio id="sound1" src="/protected-file/F1/lesson1/audioL1/ex8.m4a" controls></audio>
+  
+  <div class="letters">
+    <div class="letter">b</div>
+    <div class="letter">d</div>
+  </div>
+  <button class="check-button">Проверить</button>
+  <div class="result"></div>
+  <br>
+</section>
+
+<!-- Упражнение 3 -->
+<section class="choice-exercise" data-correct="ça">
+  <h3>Упражнение 3. Выбери правильную букву</h3>
+  <audio id="sound1" src="/protected-file/F1/lesson1/audioL1/ex9.m4a" controls></audio>
+  
+  <div class="letters">
+    <div class="letter">ca</div>
+    <div class="letter">ça</div>
+  </div>
+  <button class="check-button">Проверить</button>
+  <div class="result"></div>
+  <br>
+</section>
+
+<!-- Упражнение 4 -->
+<section class="choice-exercise" data-correct="ca">
+  <h3>Упражнение 4. Выбери правильную букву</h3>
+  <audio id="sound1" src="/protected-file/F1/lesson1/audioL1/ex10.m4a" controls></audio>
+  
+  <div class="letters">
+    <div class="letter">ca</div>
+    <div class="letter">ça</div>
+  </div>
+  <button class="check-button">Проверить</button>
+  <div class="result"></div>
+  <br>
+</section>
+
+
+  <!-- Упражнение 5 -->
+  <section class="exercise" data-answer="d,a,b,c">
+    <h3>Упражнение 5. Нажимай на буквы, которые слышишь</h3>
+    <audio controls src="/protected-file/F1/lesson1/audioL1/ex1.m4a"></audio>
+    <div class="letters">
+      <div class="letter">a</div>
+      <div class="letter">b</div>
+      <div class="letter">c</div>
+      <div class="letter">d</div>
+    </div>
+    <button class="check-button">Проверить</button>
+    <div class="result"></div>
+    <br>
+  </section>
+
+  <!-- Упражнение 6 -->
+  <section class="exercise" data-answer="c,f,e,d">
+    <h3>Упражнение 6. Нажимай на буквы, которые слышишь</h3>
+    <audio controls src="/protected-file/F1/lesson1/audioL1/ex2.m4a"></audio>
+    <div class="letters">
+      <div class="letter">c</div>
+      <div class="letter">d</div>
+      <div class="letter">e</div>
+      <div class="letter">f</div>
+    </div>
+    <button class="check-button">Проверить</button>
+    <div class="result"></div>
+    <br>
+  </section>
+
+  <!-- Упражнение 7 -->
+  <section class="exercise" data-answer="f,d,a,e">
+    <h3>Упражнение 7. Нажимай на буквы, которые слышишь</h3>
+    <audio controls src="/protected-file/F1/lesson1/audioL1/ex3.m4a"></audio>
+    <div class="letters">
+      <div class="letter">a</div>
+      <div class="letter">d</div>
+      <div class="letter">e</div>
+      <div class="letter">f</div>
+    </div>
+    <button class="check-button">Проверить</button>
+    <div class="result"></div>
+    <br>
+  </section>
+
+<!-- Упражнение 8 -->
+  <section class="exercise" data-answer="da,de,fa,fe">
+   <h3>Упражнение 8. Нажимай на слоги, которые слышишь</h3>
+    <audio controls src="/protected-file/F1/lesson1/audioL1/ex4.m4a"></audio>
+    <div class="letters">
+      <div class="letter">da</div>
+      <div class="letter">fa</div>
+      <div class="letter">fe</div>
+      <div class="letter">de</div>
+    </div>
+    <button class="check-button">Проверить</button>
+    <div class="result"></div>
+    <br>
+  </section>
+
+<!-- Упражнение 9 -->
+  <section class="exercise" data-answer="da,ba,fa,ça">
+    <h3>Упражнение 9. Нажимай на слоги, которые слышишь</h3>
+    <audio controls src="/protected-file/F1/lesson1/audioL1/ex5.m4a"></audio>
+    <div class="letters">
+      <div class="letter">ça</div>
+      <div class="letter">da</div>
+      <div class="letter">ba</div>
+      <div class="letter">fa</div>
+    </div>
+    <button class="check-button">Проверить</button>
+    <div class="result"></div>
+    <br>
+  </section>
+
+  <!-- Упражнение 10 -->
+  <section class="exercise" data-answer="ce,ça,cé,ca">
+   <h3>Упражнение 10. Нажимай на слоги, которые слышишь</h3>
+    <audio controls src="/protected-file/F1/lesson1/audioL1/ex6.m4a"></audio>
+    <div class="letters">
+      <div class="letter">ca</div>
+      <div class="letter">ça</div>
+      <div class="letter">cé</div>
+      <div class="letter">ce</div>
+    </div>
+    <button class="check-button">Проверить</button>
+    <div class="result"></div>
+    <br>
+  </section>
+  
+  <section class="title">
+  <h1>Часть 3. Письменные упражнения</h1>
+  <p>Выполните упражнения, распечатав pdf файл, или запишите их в обычной тетради.</p>
+</section>
+  
+  <div class="pdf-wrapper">
+   <iframe src="/protected-file/F1/lesson1/urok1.pdf" class="pdf-frame" allow="fullscreen"></iframe>
+  </div>
+  <a href="/protected-file/F1/lesson1/urok1.pdf" target="_blank" class="pdf-link">⬇️ Скачать PDF</a>
+  
+<section class="title">
+<p>Вот что у вас должно получиться:</p>
+</section>
+
+<section class="exercise">
+<img src="/protected-file/F1/lesson1/urok1.png" alt="photo" width="850" class="responsive-img">
+</section>
+   <section class="title">
+<h1>Часть 4. Домашняя работа</h1>
+<p> Дорогие ученики, наш урок подошел к концу 🥳. Сегодня вы выучили шесть букв французского алфавита, научились их правильно произносить и писать, а также познакомились с понятием диакритические значки 👏💪. </p>
+     <p>Сфотографируйте, пожалуйста, письменные упражнения, которые выполнили в предыдущем задании, и отправьте их на проверку через форму ниже. Сразу после проверки вам будет открыт следующий урок. Удачи и до встречи на следующем уроке! <br> </p>
+  </section>
+  
+<section class="homework-form">
+  <h2>📩 Отправить домашнюю работу</h2>
+  <p>Сфотографируйте домашнее задание, затем нажмите на кнопку ниже, чтобы отправить его через WhatsApp.</p>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="https://wa.me/972538023264?text=Здравствуйте,%20это%20домашнее%20задание%20по%20курсу%20Французский%20для%20начинающих" 
+       target="_blank"
+       style="
+         display: inline-block;
+         background-color: #25D366;
+         color: white;
+         font-weight: bold;
+         padding: 14px 24px;
+         border-radius: 8px;
+         text-decoration: none;
+         font-size: 1.1rem;
+         transition: background-color 0.3s ease;
+       "
+       onmouseover="this.style.backgroundColor='#128C7E'"
+       onmouseout="this.style.backgroundColor='#25D366'"
+    >
+      Отправить домашнее задание через WhatsApp
+    </a>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ===== Упражнения с выбором одной буквы =====
+    document.querySelectorAll('.choice-exercise').forEach(section => {
+      const letters = section.querySelectorAll('.letter');
+      const checkBtn = section.querySelector('.check-button');
+      const result = section.querySelector('.result');
+      const audio = section.querySelector('audio');
+      let selectedElement = null;
+
+      letters.forEach(letter => {
+        letter.addEventListener('click', () => {
+          letters.forEach(l => l.classList.remove('selected', 'correct', 'wrong'));
+          letter.classList.add('selected');
+          selectedElement = letter;
+        });
+      });
+
+      checkBtn.addEventListener('click', () => {
+        if (!selectedElement) {
+          result.textContent = 'Пожалуйста, выберите вариант.';
+          result.style.color = 'orange';
+          return;
+        }
+
+        const selected = selectedElement.textContent.trim();
+        const correct = section.dataset.correct;
+
+        letters.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (selected === correct) {
+          result.textContent = 'Верно!';
+          result.style.color = 'green';
+          selectedElement.classList.add('correct');
+        } else {
+          result.textContent = 'Неверно. Попробуйте снова.';
+          result.style.color = 'red';
+          selectedElement.classList.add('wrong');
+        }
+      });
+
+      audio.addEventListener('play', () => {
+        selectedElement = null;
+        letters.forEach(l => l.classList.remove('selected', 'correct', 'wrong'));
+        result.textContent = '';
+      });
+    });
+
+    // ===== Упражнения с выбором нескольких букв в правильном порядке =====
+    document.querySelectorAll('.exercise').forEach(section => {
+      const letters = section.querySelectorAll('.letter');
+      const checkBtn = section.querySelector('.check-button');
+      const result = section.querySelector('.result');
+      const audio = section.querySelector('audio');
+      const expected = section.dataset.answer.split(',');
+      let selected = [];
+
+      letters.forEach(letter => {
+        letter.addEventListener('click', () => {
+          if (!letter.classList.contains('selected')) {
+            letter.classList.add('selected');
+            selected.push(letter);
+          }
+        });
+      });
+
+      checkBtn.addEventListener('click', () => {
+        if (selected.length === 0) {
+          result.textContent = 'Пожалуйста, выберите буквы.';
+          result.style.color = 'orange';
+          return;
+        }
+
+        const selectedText = selected.map(l => l.textContent.trim());
+        const isCorrect = JSON.stringify(selectedText) === JSON.stringify(expected);
+
+        letters.forEach(l => l.classList.remove('correct', 'wrong'));
+
+        if (isCorrect) {
+          result.textContent = 'Правильно!';
+          result.style.color = 'green';
+          selected.forEach(l => l.classList.add('correct'));
+        } else {
+          result.textContent = 'Неверно. Попробуйте снова.';
+          result.style.color = 'red';
+          selected.forEach(l => l.classList.add('wrong'));
+        }
+      });
+
+      audio.addEventListener('play', () => {
+        selected = [];
+        letters.forEach(l => l.classList.remove('selected', 'correct', 'wrong'));
+        result.textContent = '';
+      });
+    });
+  });
+ 
+</script>
+</body>
+</html>
